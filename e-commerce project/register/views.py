@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from register.forms import RegistrationForm
@@ -10,6 +11,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, get_user_model, login as django_login, logout as django_logout
 User = get_user_model()
 # Create your views here.
+
+def forgot_password(request):
+
+    return render(request, 'forgot-password.html')
+
 def login(request):
 
     return render(request, 'login.html')
