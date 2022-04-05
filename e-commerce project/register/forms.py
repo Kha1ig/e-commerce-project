@@ -19,7 +19,7 @@ class RegistrationForm(UserCreationForm):
     
     password2 = forms.CharField(
         label=('Confirm Password'),
-        widget=forms.PasswordInput(attrs={'autocomplete': 'Confirm password', 'class': 'form-control', 'placeholder': 'Confirm Password'}),
+        widget=forms.PasswordInput(attrs={'autocomplete': 'Confirm password', 'class': 'form-control' , 'placeholder': 'Confirm Password'}),
         help_text=password_validation.password_validators_help_text_html(),
     )
 
@@ -38,3 +38,9 @@ class RegistrationForm(UserCreationForm):
                 'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
                 'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})
             }
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(max_length = 50, widget = forms.EmailInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Email'}))
+    password = forms.CharField(max_length = 100, widget = forms.PasswordInput(attrs={'class': 'form-control form-control-lg', 'placeholder': 'Password'}))
+

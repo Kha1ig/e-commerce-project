@@ -1,7 +1,7 @@
 from urllib import request
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from register.forms import RegistrationForm
+from register.forms import LoginForm, RegistrationForm
 from django.contrib import messages
 from register.tasks import send_email
 from django.utils.encoding import force_str
@@ -18,7 +18,19 @@ def forgot_password(request):
 
 def login(request):
 
-    return render(request, 'login.html')
+    forum = LoginForm()
+    if request.method == 'POST':
+        forum = LoginForm(request.POST)
+        if forum.is_valid():
+            email = forum.cleaned_data.get('email')
+            password = forum.cleaned_data.get('password')
+            user = authenticate(email = email, password=password)
+            if user:
+                django_login(request, user)
+                messages.success(request,'You have successfully ')
+                return redirect(reverse_lazy('index:index'))
+
+    return render(request, 'login.html', {'forum': forum})
 
 def register(request):
 
@@ -48,10 +60,10 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
         messages.success(request, 'Email is activated')
-        return redirect(reverse_lazy('register:login'))
+        return redirect(reverse_lazy('accounts:login'))
     elif user:
         messages.error(request, 'Email is not activated.')
-        return redirect(reverse_lazy('register:register'))
+        return redirect(reverse_lazy('accounts:register'))
     else:
         messages.error(request, 'Email is already activated')
-        return redirect(reverse_lazy('register:register'))
+        return redirect(reverse_lazy('accounts:register'))

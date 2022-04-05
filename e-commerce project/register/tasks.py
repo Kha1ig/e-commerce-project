@@ -16,7 +16,7 @@ def send_email(user_id, site_address):
     subject = 'Please confirm your email'
     context = {
         'user': user,
-        'site_adress': site_address,
+        'site_address': site_address,
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),
         'token': account_activation_token.make_token(user),
 

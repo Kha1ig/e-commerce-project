@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 from register.views import register,login, forgot_password ,activate
 
-app_name = 'register'
+app_name = 'accounts'
 
 urlpatterns = [
     path('', register, name='register'),

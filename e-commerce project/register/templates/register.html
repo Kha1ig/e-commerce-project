@@ -15,13 +15,15 @@
                 <form action="#", method="post">
                   {% csrf_token %}
                   {% for field in form %}
-                    <div class="form-outline mb-4">
-                      {{ field }}
+                  <div class="form-outline mb-4">
+                    {{ field }}
+                  
+                  
                       {% for error in field.errors %}
                       <li class="alert alert-danger">{{ error }}</li>
                       {% endfor %}
-                    </div>
-                  {% endfor %}
+                  </div>
+                  {% endfor %}  
 
                   <div class="form-outline mb-4">
                     <input type="submit" value="Register" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">
