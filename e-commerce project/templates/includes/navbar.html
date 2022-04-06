@@ -46,7 +46,7 @@
                         <a class="nav-link" href="{% url 'Blog:blog' %}">Blog</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'Blog:blog-detail' %}">Blog Details</a>
+                        <a class="nav-link" href="#">Blog Details</a>
                       </li>
                     </ul>
                   </li>
@@ -83,9 +83,21 @@
                   </li>
 
                   <li class="nav-item">
-                    <a href="{% url 'register:register' %}" class="icons">
-                      <i class="ti-user" aria-hidden="true"></i>
-                    </a>
+                    {%  if user.is_authenticated %}
+                      <div class="dropdown" style="margin-top: 1.3rem;margin-left: 1rem;">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          My accounts
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <a class="dropdown-item" href="{% url 'register:user-profile' %}">My accounts</a>
+                          <a class="dropdown-item" href="{% url 'register:logout' %}">Log out</a>
+                        </div>
+                      </div>
+                      {% else %}
+                      <a href="{% url 'register:register' %}" class="icons">
+                        <i class="ti-user" aria-hidden="true"></i>
+                      </a>
+                    {% endif %}
                   </li>
 
                   <li class="nav-item">

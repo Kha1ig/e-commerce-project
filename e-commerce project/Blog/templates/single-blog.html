@@ -19,7 +19,7 @@
             <div class="page_link">
               <a href="{% url 'index:index' %}">Home</a>
               <a href="{% url 'Blog:blog' %}">Blog </a>
-              <a href="{% url 'Blog:blog-detail' %}">Blog Details</a>
+              <a href="{{ blog.get_absolute_url }}">Blog Details</a>
             </div>
           </div>
         </div>

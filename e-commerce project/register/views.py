@@ -12,6 +12,12 @@ from django.contrib.auth import authenticate, get_user_model, login as django_lo
 User = get_user_model()
 # Create your views here.
 
+def user_profile(request):
+
+    return render(request, 'user-profile.html')
+
+
+
 def forgot_password(request):
 
     return render(request, 'forgot-password.html')
@@ -31,6 +37,11 @@ def login(request):
                 return redirect(reverse_lazy('index:index'))
 
     return render(request, 'login.html', {'forum': forum})
+
+def logout(request):
+
+    django_logout(request)
+    return redirect(reverse_lazy('register:login'))
 
 def register(request):
 

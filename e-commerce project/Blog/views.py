@@ -1,12 +1,15 @@
-from ast import Return
 from django.shortcuts import render
+from Blog.models import Blog
 
 # Create your views here.
 
 def blog(request):
+    blogs = Blog.objects.all()
 
-    return render(request, 'blog.html')
+    return render(request, 'blog.html', {'blogs':blogs})
 
-def blog_detail(request):
+def blog_detail(request, slug):
 
-    return render(request, 'single-blog.html')
+    blog = Blog.objects.filter(slug=slug)
+
+    return render(request, 'single-blog.html', {'blog': blog})
