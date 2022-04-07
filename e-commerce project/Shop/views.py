@@ -5,11 +5,17 @@ from .models import Product
 def shop(request):
     shops = Product.objects.all()
     context = {
-        'shop':shops
+        'shops':shops
     }
-    return render(request, 'category.html', context=context)
+    return render(request, 'category.html', context)
 
 
-def shop_detail(request):
+def shop_detail(request, slug):
 
-    return render(request, 'single-product.html')
+    shop_detail = Product.objects.filter(slug=slug)
+
+    context = {
+        'shop_detail':shop_detail
+    }
+
+    return render(request, 'single-product.html', context)

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'Contact',
     'Home',
     'Pages',
-    'Shop',
+    'Shop.apps.ShopConfig',
     'register',
     'basket'
 ]

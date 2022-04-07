@@ -1,5 +1,3 @@
-from distutils.command.upload import upload
-from secrets import choice
 from django.db import models
 from django.urls import reverse_lazy
 
@@ -33,6 +31,10 @@ class Product(models.Model):
     guarantee = models.CharField(max_length=50)
     packeting = models.CharField(max_length=100, choices=STATUS_CHOICE, default='without touch of hand')
     freshness_duration = models.CharField(max_length=30)
+    slug = models.SlugField(max_length=255, blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse_lazy('Shop:shop-detail', args=[self.slug])
 
     def __str__(self):
         return self.product_name

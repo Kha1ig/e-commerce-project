@@ -28,7 +28,7 @@
                         <a class="nav-link" href="{% url 'Shop:shop' %}">Shop Category</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'Shop:shop-detail' %}">Product Details</a>
+                        <a class="nav-link" href="{{ Shop.get_absolute_url }}">Product Details</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="{% url 'basket:checkout' %}">Product Checkout</a>

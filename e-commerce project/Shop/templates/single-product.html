@@ -17,8 +17,8 @@
               <p>Very us move be blessed multiply night</p>
             </div>
             <div class="page_link">
-              <a href="index.html">Home</a>
-              <a href="single-product.html">Product Details</a>
+              <a href="{% url 'index:index' %}">Home</a>
+              <a href="{{ Shop.get_absolute_url }}">Product Details</a>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
                     class="active"
                   >
                     <img
-                      src="{% static 'img/product/single-product/s-product-s-2.jpg' %}"
+                      src="{{ shops.image.url }}"
                       alt=""
                     />
                   </li>
