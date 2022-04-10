@@ -58,26 +58,37 @@
 
                       <nav class="blog-pagination justify-content-center d-flex">
                           <ul class="pagination">
-                              <li class="page-item">
-                                  <a href="#" class="page-link" aria-label="Previous">
-                                      <span aria-hidden="true">
-                                          <span class="ti-arrow-left"></span>
-                                      </span>
-                                  </a>
-                              </li>
-                              <li class="page-item">
-                                  <a href="#" class="page-link">1</a>
-                              </li>
-                              <li class="page-item active">
-                                  <a href="#" class="page-link">2</a>
-                              </li>
-                              <li class="page-item">
-                                  <a href="#" class="page-link" aria-label="Next">
-                                      <span aria-hidden="true">
-                                          <span class="ti-arrow-right"></span>
-                                      </span>
-                                  </a>
-                              </li>
+                            {% if current_page is not previous_page %}
+                                <li class="page-item">
+                                    <a href="?page={{ previous_page }}" class="page-link" aria-label="Previous">
+                                        <span aria-hidden="true">
+                                            <span class="ti-arrow-left"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            {% for page in page_range %}
+                                {% if page is current_page %}
+                                    <li class="page-item active">
+                                        {{page}}
+                                    </li>
+                                    {% else %}
+                                        <li class="page-item active">
+                                            <a href="?page={{page}}" class="page-link">{{page}}</a>
+                                        </li>
+
+                                {% endif %}
+                            {% endfor %}
+                            {% if current_page is not next_page %}
+                                <li class="page-item">
+                                    <a href="?page={{ next_page }}" class="page-link" aria-label="Next">
+                                        <span aria-hidden="true">
+                                            <span class="ti-arrow-right"></span>
+                                        </span>
+                                    </a>
+                                </li>
+                            {% endif %}
                           </ul>
                       </nav>
                   </div>
