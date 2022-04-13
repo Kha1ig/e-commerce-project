@@ -21,7 +21,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('index/', include('Home.url', namespace='index')),
+    path('^oauth/', include('social_django.urls', namespace='social')),  # <--
+    path('', include('Home.url', namespace='index')),
     path('shop/', include('Shop.url', namespace='Shop')),
     path('basket/', include('basket.url', namespace='basket')),
     path('blog/', include('Blog.url', namespace='Blog')),

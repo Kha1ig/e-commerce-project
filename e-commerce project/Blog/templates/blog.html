@@ -37,8 +37,8 @@
                         <div class="blog_item_img">
                           <img class="card-img rounded-0" src="{{blog.image.url}}" alt="">
                           <a href="{{ blog.get_absolute_url }}" class="blog_item_date">
-                            <h3>{{blog.created_add}}</h3>
-                            <!-- <p>Jan</p> -->
+                            <h3>{{blog.created_add|date:'d'}}</h3>
+                            <p>{{blog.created_add|date:'N'}}</p>
                           </a>
                         </div>
                         

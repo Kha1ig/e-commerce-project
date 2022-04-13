@@ -26,7 +26,7 @@ class Blog(models.Model):
     
 class Category(models.Model):
     title = models.CharField(max_length=200)
-    short_description = models.CharField(max_length=200)
+    short_description = models.CharField(max_length=200, blank=True, null=True)
     created_add = models.DateField(auto_now_add=True)
 
     def __str__(self):
