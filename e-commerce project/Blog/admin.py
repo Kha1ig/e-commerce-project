@@ -1,5 +1,8 @@
 from django.contrib import admin
 from Blog.models import Author, Blog, Category, Comment
+from django.contrib.auth import get_user_model
+
+User=get_user_model()
 # Register your models here.
 
 @admin.register(Blog)

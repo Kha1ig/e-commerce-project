@@ -4,7 +4,8 @@
   <!--================Header Menu Area =================-->
 
   {% block content %}
-
+<link rel="stylesheet" href="{% static 'css/comment.css' %}">
+<link rel="stylesheet" href="{% static 'css/comment.js' %}">
     <!--================Home Banner Area =================-->
     <section class="banner_area">
       <div class="banner_inner d-flex align-items-center">
@@ -221,32 +222,48 @@
 									</div>
 									<div class="comment-form">
 											<h4>Leave a Reply</h4>
-											<form class="form-contact comment_form" action="#" id="commentForm">
+											<form class="form-contact comment_form" action="#" method="post">
+                        {% csrf_token %}
                         <div class="row">
                           <div class="col-12">
                             <div class="form-group">
-                                <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
+                              {{forum.letter}}
+                                
                             </div>
                           </div>
                           <div class="col-sm-6">
                             <div class="form-group">
-                              <input class="form-control" name="name" id="name" type="text" placeholder="Name">
+                              {{forum.name}}
+                              
                             </div>
                           </div>
                           <div class="col-sm-6">
                             <div class="form-group">
-                              <input class="form-control" name="email" id="email" type="email" placeholder="Email">
+                              {{forum.name}}
+                              
                             </div>
                           </div>
-                          <div class="col-12">
-                            <div class="form-group">
-                              <input class="form-control" name="website" id="website" type="text" placeholder="Website">
+                          
+                        </div>
+                        {% if user.is_authenticated %}
+                          <div class="form-group">
+                            <input type="submit" class="form-control" value="Send Message">
+                          </div>
+                          {% else %}
+                          <button data-modal-target="#modal">Send Message</button>
+                          <div class="modal" id="modal">
+                            <div class="mobil-header">
+                              <div>Information</div>
+                              <button class="close-button">&times;</button>
+                              <div class="modal-body">
+                                Comment yazmaq isteyirsen, o zaman login ol veya qeydiyyatdan kec
+                                <a href="{% url 'register:register' %}">Register</a>
+                                <a href="{% url 'register:login' %}">Login</a>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="form-group">
-                          <button type="submit" class="main_btn">Send Message</button>
-                        </div>
+                          <div id="overlay"></div>
+                        {% endif %}
                       </form>
 									</div>
 							</div>

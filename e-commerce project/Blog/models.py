@@ -45,10 +45,10 @@ class Comment(models.Model):
         ('approve', 'Approve'),
     )
 
-    blog =  models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='show_all_comments')
-    letter = models.TextField(blank= False, null= False)
-    name = models.CharField(max_length=100, blank= False, null= False)
-    email = models.EmailField(blank=False, null=False)
+    blog =  models.ForeignKey(Blog, on_delete=models.CASCADE)
+    letter = models.TextField()
+    name = models.CharField(max_length=100,)
+    email = models.EmailField(max_length=127,)
     date_add = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='reject')
     
@@ -59,8 +59,8 @@ class Comment(models.Model):
     def __str__(self):
         return f'Comment {self.letter} by {self.name}'
     
-    @property
-    def comment_count(self):
-        return self.letter.count()
+    # @property
+    # def comment_count(self):
+    #     return self.letter.count()
 
 

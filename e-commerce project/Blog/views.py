@@ -1,6 +1,9 @@
 import math
 from django.shortcuts import render
-from Blog.models import Blog
+from Blog.forms import CommentForm
+from Blog.models import Blog, Comment
+from django.views.decorators.csrf import csrf_exempt
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -33,8 +36,25 @@ def blog(request):
 
     return render(request, 'blog.html', context)
 
+@csrf_exempt
 def blog_detail(request, slug):
 
     blog = Blog.objects.filter(slug=slug).first()
+    new_comment = Comment.objects.filter(blog=blog,status='approve')
 
-    return render(request, 'single-blog.html', {'blog': blog})
+    forum = CommentForm()
+    if request.method == 'POST':
+        Comment.objects.create(
+            blog = Blog.objects.all().filter(slug=slug).first(),
+            letter = request.POST.get('letter'),
+            name = request.POST.get('name'),
+            email = request.POST.get('email'),
+        )
+    
+    context = {
+        'blog': blog,
+        'forum': forum,
+        'new_comment': new_comment,
+    }
+
+    return render(request, 'single-blog.html', context=context)
