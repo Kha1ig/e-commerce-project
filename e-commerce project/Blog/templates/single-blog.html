@@ -41,7 +41,7 @@
 													<h2>{{blog.title}}</h2>
                           <ul class="blog-info-link mt-3 mb-4">
                               <li><a href="#"><i class="ti-user"></i>{{blog.category}}</a></li>
-                              <li><a href="#"><i class="ti-comments"></i> 03 Comments</a></li>
+                              <li><a href="#"><i class="ti-comments"></i> {{ new_comment.count }} Comments</a></li>
                             </ul>
 													<p class="excert">
 														{{blog.short_description_1}}
@@ -68,7 +68,7 @@
                     <div class="d-sm-flex justify-content-between text-center">
                       <p class="like-info"><span class="align-middle"><i class="ti-heart"></i></span> Lily and 4 people like this</p>
                       <div class="col-sm-4 text-center my-2 my-sm-0">
-                        <p class="comment-count"><span class="align-middle"><i class="ti-comment"></i></span> 06 Comments</p>
+                        <p class="comment-count"><span class="align-middle"><i class="ti-comment"></i></span> {{ new_comment.count }} Comments</p>
                       </div>
                       <ul class="social-icons">
                         <li><a href="#"><i class="ti-facebook"></i></a></li>
@@ -135,33 +135,60 @@
 
 									<div class="comments-area">
 											<h4>05 Comments</h4>
+                      {% for comment in new_comment %}
 											<div class="comment-list">
                         <div class="single-comment justify-content-between d-flex">
                           <div class="user justify-content-between d-flex">
                               <div class="thumb">
-                                  <img src="{% static 'img/blog/c1.png' %}" alt="">
+                                  <img src="{{comment.userprofile.profile_pic.url}}" alt="">
                               </div>
                               <div class="desc">
                                   <p class="comment">
-                                    Multiply sea night grass fourth day sea lesser rule open subdue female fill which them Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser 
+                                    {{ comment.letter }}
                                   </p>
 
                                   <div class="d-flex justify-content-between">
                                     <div class="d-flex align-items-center">
                                       <h5>
-                                        <a href="#">Emilly Blunt</a>
+                                        <a href="#"> {{ comment.name }} </a>
                                       </h5>
-                                      <p class="date">December 4, 2017 at 3:12 pm </p>
+                                      <p class="date"> {{ comment.date_add }} </p>
                                     </div>
 
                                     <div class="reply-btn">
-                                      <a href="#" class="btn-reply text-uppercase">reply</a>
+                                      
+
+                                      <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
+                                        Reply
+                                      </button>
+                                      <div class="collapse" id="replyBox{{comment.sno}}">
+                                          <div class="card card-body my-2">
+                                              <form action="/blog/postComment" method="post">
+                                                  {% csrf_token %}
+                                                  <div class="form-group">
+                                                      <label for="comment">Post a reply </label>
+                                                      <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
+                                                      <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                                                  </div>
+                                                  <input type="hidden" name="postSno" value="{{post.sno}}">
+                                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                              </form>
+                                          </div>
+                                      </div>
+                                      <div class="replies bg-danger my-2 ">
+                                        {% for reply in replyDict|get_val:comment.sno %}
+                                        {{reply}}
+                                        <br> 
+                                        {% endfor %}
+                                        </div>
+
                                     </div>
                                   </div>
                                   
                               </div>
                           </div>
                       </div>
+                      {% endfor %}
 											</div>
 											<div class="comment-list">
                           <div class="single-comment justify-content-between d-flex">
@@ -239,7 +266,7 @@
                           </div>
                           <div class="col-sm-6">
                             <div class="form-group">
-                              {{forum.name}}
+                              {{forum.email}}
                               
                             </div>
                           </div>

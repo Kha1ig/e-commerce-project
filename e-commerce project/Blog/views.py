@@ -3,7 +3,7 @@ from django.shortcuts import render
 from Blog.forms import CommentForm
 from Blog.models import Blog, Comment
 from django.views.decorators.csrf import csrf_exempt
-from django.db import IntegrityError
+from django.contrib import messages
 
 # Create your views here.
 
@@ -58,3 +58,20 @@ def blog_detail(request, slug):
     }
 
     return render(request, 'single-blog.html', context=context)
+
+def postComment(request):
+    if request.method == "POST":
+        comment=request.POST.get('comment')
+        user=request.user
+        postSno =request.POST.get('postSno')
+        post= Blog.objects.get(sno=postSno)
+        parentSno= request.POST.get('parentSno')
+        if parentSno=="":
+            comment=Comment(comment= comment, user=user, post=post)
+            comment.save()
+            messages.success(request, "Your comment has been posted successfully")
+        else:
+            parent= Comment.objects.get(sno=parentSno)
+            comment=Comment(comment= comment, user=user, post=post , parent=parent)
+            comment.save()
+            messages.success(request, "Your reply has been posted successfully")

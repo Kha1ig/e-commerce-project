@@ -48,9 +48,11 @@ class Comment(models.Model):
     blog =  models.ForeignKey(Blog, on_delete=models.CASCADE)
     letter = models.TextField()
     name = models.CharField(max_length=100,)
-    email = models.EmailField(max_length=127,)
+    email = models.EmailField(max_length=127,blank=False, null=False)
     date_add = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='reject')
+
+    parent = models.ForeignKey('self', null=True,on_delete=models.CASCADE, related_name='replies')
     
 
     class Meta:
@@ -59,8 +61,8 @@ class Comment(models.Model):
     def __str__(self):
         return f'Comment {self.letter} by {self.name}'
     
-    # @property
-    # def comment_count(self):
-    #     return self.letter.count()
+    @property
+    def comment_count(self):
+        return self.letter.count()
 
 
