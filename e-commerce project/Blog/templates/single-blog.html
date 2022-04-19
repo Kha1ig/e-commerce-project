@@ -68,7 +68,16 @@
                     <div class="d-sm-flex justify-content-between text-center">
                       <p class="like-info"><span class="align-middle"><i class="ti-heart"></i></span> Lily and 4 people like this</p>
                       <div class="col-sm-4 text-center my-2 my-sm-0">
-                        <p class="comment-count"><span class="align-middle"><i class="ti-comment"></i></span> {{ new_comment.count }} Comments</p>
+                        {% if new_comment.count == 1 %} 
+                          <p class="comment-count"><span class="align-middle"><i class="ti-comment"></i></span>
+                            {{ new_comment.count }} Comment
+                          </p>
+                          {% else %}
+                          <p class="comment-count"><span class="align-middle"><i class="ti-comment"></i></span>
+                            {{ new_comment.count }} Comments
+                          </p>
+                        {% endif %}
+
                       </div>
                       <ul class="social-icons">
                         <li><a href="#"><i class="ti-facebook"></i></a></li>
@@ -134,120 +143,50 @@
                   </div>
 
 									<div class="comments-area">
-											<h4>05 Comments</h4>
+                    {% if new_comment.count == 1 %} 
+											<h4>{{ new_comment.count }} Comment</h4>
+                    {% else %}
+                      <h4>{{ new_comment.count }} Comments</h4>
+                    {% endif %}
+
                       {% for comment in new_comment %}
-											<div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                          <div class="user justify-content-between d-flex">
-                              <div class="thumb">
-                                  <img src="{{comment.userprofile.profile_pic.url}}" alt="">
-                              </div>
-                              <div class="desc">
-                                  <p class="comment">
-                                    {{ comment.letter }}
-                                  </p>
+                        <div class="comment-list">
+                          <div class="single-comment justify-content-between d-flex">
+                            <div class="user justify-content-between d-flex">
+                                <div class="thumb">
+                                    <img src="{{comment.User.profile_pic.url}}" alt="">
+                                </div>
+                                <div class="desc">
+                                    <p class="comment">
+                                      {{ comment.letter }}
+                                    </p>
 
-                                  <div class="d-flex justify-content-between">
-                                    <div class="d-flex align-items-center">
-                                      <h5>
-                                        <a href="#"> {{ comment.name }} </a>
-                                      </h5>
-                                      <p class="date"> {{ comment.date_add }} </p>
-                                    </div>
-
-                                    <div class="reply-btn">
-                                      
-
-                                      <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#replyBox{{comment.sno}}" aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
-                                        Reply
-                                      </button>
-                                      <div class="collapse" id="replyBox{{comment.sno}}">
-                                          <div class="card card-body my-2">
-                                              <form action="/blog/postComment" method="post">
-                                                  {% csrf_token %}
-                                                  <div class="form-group">
-                                                      <label for="comment">Post a reply </label>
-                                                      <input type="text" class="form-control" name="comment" placeholder="Enter comment here">
-                                                      <input type="hidden" name="parentSno" value="{{comment.sno}}">
-                                                  </div>
-                                                  <input type="hidden" name="postSno" value="{{post.sno}}">
-                                                  <button type="submit" class="btn btn-primary">Submit</button>
-                                              </form>
-                                          </div>
+                                    <div class="d-flex justify-content-between">
+                                      <div class="d-flex align-items-center">
+                                        <h5>
+                                          <a href="#"> {{ comment.name }} </a>
+                                        </h5>
+                                        <p class="date"> {{ comment.date_add }} </p>
                                       </div>
-                                      <div class="replies bg-danger my-2 ">
-                                        {% for reply in replyDict|get_val:comment.sno %}
-                                        {{reply}}
-                                        <br> 
-                                        {% endfor %}
-                                        </div>
 
+                                      <div class="reply-btn">
+                                        <a href="#" class="btn-reply text-uppercase">reply</a>
+                                      </div>
                                     </div>
-                                  </div>
-                                  
-                              </div>
-                          </div>
-                      </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+											  </div>
                       {% endfor %}
-											</div>
-											<div class="comment-list">
-                          <div class="single-comment justify-content-between d-flex">
-                              <div class="user justify-content-between d-flex">
-                                  <div class="thumb">
-                                      <img src="{% static 'img/blog/c2.png' %}" alt="">
-                                  </div>
-                                  <div class="desc">
-                                      <p class="comment">
-                                        Multiply sea night grass fourth day sea lesser rule open subdue female fill which them Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser 
-                                      </p>
-    
-                                      <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                          <h5>
-                                            <a href="#">Emilly Blunt</a>
-                                          </h5>
-                                          <p class="date">December 4, 2017 at 3:12 pm </p>
-                                        </div>
-    
-                                        <div class="reply-btn">
-                                          <a href="#" class="btn-reply text-uppercase">reply</a>
-                                        </div>
-                                      </div>
-                                      
-                                  </div>
-                              </div>
-                          </div>
-											</div>
-											<div class="comment-list">
-                          <div class="single-comment justify-content-between d-flex">
-                              <div class="user justify-content-between d-flex">
-                                  <div class="thumb">
-                                      <img src="{% static 'img/blog/c3.png' %}" alt="">
-                                  </div>
-                                  <div class="desc">
-                                      <p class="comment">
-                                        Multiply sea night grass fourth day sea lesser rule open subdue female fill which them Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser 
-                                      </p>
-    
-                                      <div class="d-flex justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                          <h5>
-                                            <a href="#">Emilly Blunt</a>
-                                          </h5>
-                                          <p class="date">December 4, 2017 at 3:12 pm </p>
-                                        </div>
-    
-                                        <div class="reply-btn">
-                                          <a href="#" class="btn-reply text-uppercase">reply</a>
-                                        </div>
-                                      </div>
-                                      
-                                  </div>
-                              </div>
-                          </div>
-											</div>
+
 									</div>
 									<div class="comment-form">
+                    {% if new_comment %}
+                      <div class="alert alert-success" role="alert">
+                        Your comment is awaiting moderation
+                      </div>
+                    {% else %}
 											<h4>Leave a Reply</h4>
 											<form class="form-contact comment_form" action="#" method="post">
                         {% csrf_token %}
@@ -292,6 +231,7 @@
                           <div id="overlay"></div>
                         {% endif %}
                       </form>
+                    {% endif %}
 									</div>
 							</div>
 							<div class="col-lg-4">

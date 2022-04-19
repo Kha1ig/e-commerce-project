@@ -10,7 +10,7 @@ class CommentForm(ModelForm):
 
     class Meta:
         model = Comment
-        fields = ('letter', 'name', 'email')
+        fields = ('letter', 'name', 'email', 'user')
 
         widgets = {
             'letter': forms.Textarea(

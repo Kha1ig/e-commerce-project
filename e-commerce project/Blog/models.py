@@ -1,6 +1,7 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse_lazy
-
+from register.models import User
 # Create your models here.
 
 class Blog(models.Model):
@@ -48,11 +49,11 @@ class Comment(models.Model):
     blog =  models.ForeignKey(Blog, on_delete=models.CASCADE)
     letter = models.TextField()
     name = models.CharField(max_length=100,)
-    email = models.EmailField(max_length=127,blank=False, null=False)
+    email = models.EmailField(max_length=127)
     date_add = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='reject')
-
-    parent = models.ForeignKey('self', null=True,on_delete=models.CASCADE, related_name='replies')
+    userprofile= models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='user_comment',blank=True,null=True)
     
 
     class Meta:
