@@ -12,6 +12,7 @@ class Blog(admin.ModelAdmin):
     list_display_links = list_display
     search_fields = ('title', 'author', )
     search_help_text = ('find by title or author')
+    list_per_page = 10
     actions = ['approve_comments']
 
     def approve_comments(self, request, queryset):
