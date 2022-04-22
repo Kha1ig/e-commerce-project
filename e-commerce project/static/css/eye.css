@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900');
+
+#toggle {
+    position: absolute;
+    top: 42%;
+    right: 55px;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    background: url(https://img.icons8.com/ios-glyphs/30/000000/visible--v1.png);
+    background-size: cover;
+    cursor: pointer;
+
+}
+#toggle.hide {
+    background: url(https://img.icons8.com/ios-glyphs/30/000000/hide.png);
+    background-size: cover;
+}

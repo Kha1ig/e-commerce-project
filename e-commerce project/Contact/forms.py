@@ -1,7 +1,9 @@
 from django import forms
 from django.forms import ModelForm
-
 from Contact.models import Contact
+from django.contrib.auth import get_user_model
+
+User=get_user_model()
 
 class ContactForm(ModelForm):
     pass

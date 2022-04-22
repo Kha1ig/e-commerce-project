@@ -8,7 +8,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
 def contact(request):
-    Contact_information = Contact_info.objects.all()
+    info = Contact_info.objects.all()
 
     forum = ContactForm()
     if request.method == 'POST':
@@ -19,7 +19,7 @@ def contact(request):
     
     context = {
         'forum': forum,
-        'Contact_information': Contact_information
+        'info': info
     }
     
 
