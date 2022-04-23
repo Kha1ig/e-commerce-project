@@ -4,7 +4,9 @@ from Blog.forms import CommentForm
 from Blog.models import Blog, Comment
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
+
 
 User=get_user_model()
 
@@ -40,21 +42,21 @@ def blog(request):
 
     return render(request, 'blog.html', context)
 
-@csrf_exempt
+@login_required
 def blog_detail(request, slug):
 
     blog = Blog.objects.filter(slug=slug).first()
     new_comment = Comment.objects.filter(blog=blog,status='approve')
 
     forum = CommentForm()
-    if User.is_authenticated:
-        if request.method == 'POST':
-            Comment.objects.create(
-                blog = Blog.objects.all().filter(slug=slug).first(),
-                letter = request.POST.get('letter'),
-                name = request.POST.get('name'),
-                email = request.POST.get('email'),
-            )
+    
+    if request.method == 'POST':
+        Comment.objects.create(
+            blog = blog,
+            letter = request.POST.get('letter'),
+            
+            user = request.user
+        )
     
     
     context = {

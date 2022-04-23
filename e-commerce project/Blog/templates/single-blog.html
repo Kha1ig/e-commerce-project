@@ -154,7 +154,7 @@
                           <div class="single-comment justify-content-between d-flex">
                             <div class="user justify-content-between d-flex">
                                 <div class="thumb">
-                                    <img src="{{comment.User.profile_pic.url}}" alt="">
+                                    <img src="{{comment.user.image.url}}" alt="">
                                 </div>
                                 <div class="desc">
                                     <p class="comment">
@@ -182,11 +182,7 @@
 
 									</div>
 									<div class="comment-form">
-                    {% if new_comment %}
-                      <div class="alert alert-success" role="alert">
-                        Your comment is awaiting moderation
-                      </div>
-                    {% else %}
+                   
 											<h4>Leave a Reply</h4>
 											<form class="form-contact comment_form" action="#" method="post">
                         {% csrf_token %}
@@ -197,41 +193,16 @@
                                 
                             </div>
                           </div>
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                              {{forum.name}}
-                              
-                            </div>
-                          </div>
-                          <div class="col-sm-6">
-                            <div class="form-group">
-                              {{forum.email}}
-                              
-                            </div>
-                          </div>
                           
                         </div>
-                        {% if user.is_authenticated %}
+                       
                           <div class="form-group">
                             <input type="submit" class="form-control" value="Send Message">
                           </div>
-                          {% else %}
-                          <button data-modal-target="#modal">Send Message</button>
-                          <div class="modal" id="modal">
-                            <div class="mobil-header">
-                              <div>Information</div>
-                              <button class="close-button">&times;</button>
-                              <div class="modal-body">
-                                Comment yazmaq isteyirsen, o zaman login ol veya qeydiyyatdan kec
-                                <a href="{% url 'register:register' %}">Register</a>
-                                <a href="{% url 'register:login' %}">Login</a>
-                              </div>
-                            </div>
-                          </div>
-                          <div id="overlay"></div>
-                        {% endif %}
+                          
+                          
                       </form>
-                    {% endif %}
+                    
 									</div>
 							</div>
 							<div class="col-lg-4">

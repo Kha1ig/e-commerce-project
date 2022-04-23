@@ -7,6 +7,7 @@ from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
 
     email = models.EmailField('email adress', blank=True, unique=True)
+    image = models.ImageField(upload_to='user-image/', blank=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
@@ -14,5 +15,4 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
     
-    def save(self, request):
-        return (request.User.id)
+    

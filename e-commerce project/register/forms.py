@@ -32,7 +32,7 @@ class RegistrationForm(UserCreationForm):
 
         )
         widgets = {
-                'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name'}),
+                'first_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First Name',}),
                 'last_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'}),
                 'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
                 'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})

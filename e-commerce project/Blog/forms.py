@@ -10,7 +10,7 @@ class CommentForm(ModelForm):
 
     class Meta:
         model = Comment
-        fields = ('letter', 'name', 'email', 'user')
+        fields = ('letter', 'user')
 
         widgets = {
             'letter': forms.Textarea(
@@ -19,20 +19,6 @@ class CommentForm(ModelForm):
                 'cols': '30',
                 'rows':   "9",
                 'placeholder': 'Write Comment',
-                }
-            ),
-            'name': forms.TextInput(
-                attrs = {
-                    'class': 'form-control',
-                    'placeholder': 'Name',
-
-                }
-            ),
-            'email': forms.EmailInput(
-                attrs = {
-                    'class': 'form-control',
-                    'placeholder': 'Email',
-
                 }
             ),
 

@@ -6,14 +6,19 @@ from register.tasks import send_email
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from register.tools.tokens import account_activation_token
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, get_user_model, login as django_login, logout as django_logout
 User = get_user_model()
 # Create your views here.
 
 def user_profile(request):
+    user = User.objects.filter().first()
 
-    return render(request, 'user-profile.html')
+    context = {
+        'user': user,
+    }
+    return render(request, 'user-profile.html', context)
 
 
 
