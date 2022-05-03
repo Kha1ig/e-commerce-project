@@ -6,6 +6,8 @@ from register.tasks import send_email
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from register.tools.tokens import account_activation_token
+from django.views.generic import UpdateView
+from .forms import UserProfileForm
 from .models import User
 
 from django.contrib.auth.decorators import login_required
@@ -13,14 +15,40 @@ from django.contrib.auth import authenticate, get_user_model, login as django_lo
 User = get_user_model()
 # Create your views here.
 
-@login_required
-def user_profile(request):
-    user = User.objects.all()
+# class UserProfileView(UpdateView):
 
-    context = {
-        'user': user,
-    }
-    return render(request, 'user-profile.html', context)
+#     model = User
+#     template_name = 'user-profile.html'
+#     forum_class = 'UserProfileForm'
+#     success_url = reverse_lazy('index')
+#     pk_url_kwarg = 'pk'
+
+#     def get_object(self):
+#         return self.request.user
+
+    # def get_context_data(self, **kwargs):
+    #     context =  super().get_context_data(**kwargs)
+    #     context['form'] = UserProfileForm(self=self.request.user.pk)
+    #     return context
+
+def edit_profile(request):
+	msg=None
+	if request.method=='POST':
+		form=UserProfileForm(request.POST,instance=request.user)
+		if form.is_valid():
+			form.save()
+			msg='Data has been saved'
+	form=UserProfileForm(instance=request.user)
+	return render(request, 'user-profile.html',{'form':form,'msg':msg})
+
+# @login_required
+# def user_profile(request):
+#     user = User.objects.all()
+
+#     context = {
+#         'user': user,
+#     }
+#     return render(request, 'user-profile.html', context)
 
 
 

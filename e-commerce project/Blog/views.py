@@ -2,7 +2,6 @@ import math
 from django.shortcuts import render
 from Blog.forms import CommentForm
 from Blog.models import Blog, Comment
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model

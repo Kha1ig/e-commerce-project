@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 
 # Create your models here.
 
-class Product(models.Model):
+class Products(models.Model):
 
     STATUS_CHOICES = (
         ('no information', 'No information'),
@@ -13,13 +13,13 @@ class Product(models.Model):
     STATUS_CHOICE = (
         ('without touch of hand', 'Without touch of hand'),
     )
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    category = models.ForeignKey('Categories', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='product-image')
     image_1 = models.ImageField(upload_to='product-image')
     image_2 = models.ImageField(upload_to='product-image')
     product_name = models.CharField(max_length=100)
     price = models.FloatField()
-    brand = models.ForeignKey('Brand', on_delete=models.CASCADE)
+    brand = models.ForeignKey('Brands', on_delete=models.CASCADE)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='no information')
     short_description = models.TextField()
     description_1 = models.TextField()
@@ -39,15 +39,45 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
     
-class Category(models.Model):
+    @staticmethod
+    def get_all_products():
+        return Products.objects.all()
+
+    @staticmethod
+    def get_all_products_by_categoryid(category_id):
+        if category_id:
+            return Products.objects.filter(category = category_id)
+        else:
+            return Products.get_all_products()
+    
+    class Meta:
+        verbose_name = 'Product'
+        verbose_name_plural = 'Products'
+    
+class Categories(models.Model):
     category_name = models.CharField(max_length=100)
+
+    @staticmethod
+    def get_all_categories():
+        return Categories.objects.all()
 
     def __str__(self):
         return self.category_name
 
-class Brand(models.Model):
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return self.category_name
+
+class Brands(models.Model):
     brand_name = models.CharField(max_length=100)
     bio = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.brand_name
+    
+    class Meta:
+        verbose_name = 'Brand'
+        verbose_name_plural = 'Brands'

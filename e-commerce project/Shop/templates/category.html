@@ -47,7 +47,7 @@
             
             <div class="latest_product_inner">
               <div class="row">
-                {% for shop in shops %}
+                {% for shop in products %}
                   <div class="col-lg-4 col-md-6">
                     <div class="single-product">
                       <div class="product-img">
@@ -100,10 +100,12 @@
                 </div>
                 <div class="widgets_inner">
                   <ul class="list">
+                    {% for category in categories %}
                     <li>
-                      <a href="#">Frozen Fish</a>
+                      <a href="/shop/?category={{category.id}}">{{category.category_name}}</a>
                     </li>
-                    <li>
+                    {% endfor %}
+                    <!-- <li>
                       <a href="#">Dried Fish</a>
                     </li>
                     <li>
@@ -120,7 +122,7 @@
                     </li>
                     <li>
                       <a href="#">Meat</a>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
               </aside>
