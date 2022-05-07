@@ -15,31 +15,30 @@ from django.contrib.auth import authenticate, get_user_model, login as django_lo
 User = get_user_model()
 # Create your views here.
 
-# class UserProfileView(UpdateView):
+class UserProfileView(UpdateView):
 
-#     model = User
-#     template_name = 'user-profile.html'
-#     forum_class = 'UserProfileForm'
-#     success_url = reverse_lazy('index')
-#     pk_url_kwarg = 'pk'
+    model = User
+    template_name = 'user-profile.html'
+    form_class = UserProfileForm
+    success_url = reverse_lazy('index:index')
 
-#     def get_object(self):
-#         return self.request.user
 
-    # def get_context_data(self, **kwargs):
-    #     context =  super().get_context_data(**kwargs)
-    #     context['form'] = UserProfileForm(self=self.request.user.pk)
-    #     return context
 
-def edit_profile(request):
-	msg=None
-	if request.method=='POST':
-		form=UserProfileForm(request.POST,instance=request.user)
-		if form.is_valid():
-			form.save()
-			msg='Data has been saved'
-	form=UserProfileForm(instance=request.user)
-	return render(request, 'user-profile.html',{'form':form,'msg':msg})
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        context['form'] = self.form_class
+        return context
+
+# def edit_profile(request):
+# 	msg=None
+# 	if request.method=='POST':
+# 		form=UserProfileForm(request.POST,instance=request.user)
+# 		if form.is_valid():
+# 			form.save()
+# 			msg='Data has been saved'
+# 	form=UserProfileForm(instance=request.user)
+# 	return render(request, 'user-profile.html',{'form':form,'msg':msg})
 
 # @login_required
 # def user_profile(request):

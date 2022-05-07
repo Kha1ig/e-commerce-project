@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}   
+
+{% block content %}
+
+<section class="ftco-section contact-section create-story">
+    <div class="container">
+        <div class="row block-9 justify-content-center">
+            <div class="col-md-6 order-md-last d-flex">
+                <form action="#" class="bg-light p-5 contact-form" method="post" enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    <a class="navbar-brand center" href="#">Stories<span>.</span></a>
+
+                    {{form.as_p}}
+
+                    {% if url == 'create-blog/' %}  %}
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary py-3 px-5">
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <input type="submit" value="Update" class="btn btn-primary py-3 px-5">
+                        </div>
+                    {% endif %}
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

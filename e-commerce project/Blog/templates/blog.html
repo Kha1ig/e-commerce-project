@@ -51,6 +51,12 @@
                               <li><a href="{{ blog.get_absolute_url }}"><i class="ti-user"></i>{{blog.category}}</a></li>
                               <li><a href="{{ blog.get_absolute_url }}"><i class="ti-comments"></i> 03 Comments</a></li>
                             </ul>
+                            <a href="{% url 'Blog:update_blog' pk=blog.pk %}">Update to Blog 
+                              <iclass="ion-ios-arrow-forward"></i>
+                            </a>
+                            <a href="{% url 'Blog:delete_blog' pk=blog.pk %}">Delete to Blog 
+                              <iclass="ion-ios-arrow-forward"></i>
+                            </a>
                         </div>
                       </article>
                       {% empty %}

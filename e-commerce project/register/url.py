@@ -1,6 +1,6 @@
 from django.urls import path, re_path
 from register.views import logout, register,login, forgot_password ,activate
-from .views import edit_profile
+from .views import UserProfileView
 
 app_name = 'register'
 
@@ -11,7 +11,7 @@ urlpatterns = [
     path('login', login, name='login'),
     path('logout', logout, name='logout'),
     path('login/reset-password', forgot_password, name='forgot-password'),
-    path('edit-profile/', edit_profile, name='edit-profile'),
+    path('edit-profile/<int:pk>', UserProfileView.as_view(), name='edit-profile'),
     #path('myaccounts/', user_profile, name='user-profile'),
 
 ]

@@ -1,12 +1,13 @@
 import math
-from django.shortcuts import render
-from Blog.forms import CommentForm
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
+from .forms import BlogForm, CommentForm
 from Blog.models import Blog, Comment
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 User=get_user_model()
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView,CreateView, UpdateView, DeleteView
 
 
 # Create your views here.
@@ -60,6 +61,44 @@ class BlogDetailView(DetailView):
         context['blogs'] = Blog.objects.filter(slug=self.kwargs.get('slug'))
         context['new_comment'] = Comment.objects.filter(status='approve')
         return context
+
+class BlogCreateView(CreateView):
+    template_name = 'create-blog.html'
+    form_class = BlogForm
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('Blog:blog')
+
+
+class BlogUpdateView(UpdateView):
+
+    template_name = 'create-blog.html'
+    form_class = BlogForm
+    success_url = reverse_lazy('Blog:blog')
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Blog, pk=pk)
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
+    
+    # def get_success_url(self):
+    #     return reverse_lazy('Blog:blog')
+
+class BlogDeleteView(DeleteView):
+
+    template_name = 'delete-blog.html'
+
+    def get_object(self):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Blog, pk=pk)
+
+    def get_success_url(self):
+        return reverse_lazy('Blog:blog')
 
 # @login_required
 # def blog_detail(request, slug):

@@ -10,6 +10,7 @@ class Blog(models.Model):
     author = models.ForeignKey('Author', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='blog_image/')
     created_add = models.DateField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=200)
     short_description = models.CharField(max_length=200)
     short_description_1 = models.TextField(max_length=500)

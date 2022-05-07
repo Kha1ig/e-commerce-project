@@ -18,7 +18,7 @@
 			<table class="table table-bordered">
 				<form method="post">
 					{% csrf_token %}
-					{{form.as_p}}
+					{{form}}
 					<tr>
 						<td colspan="2">
 							<input type="submit" value="Save" class="btn btn-primary" />

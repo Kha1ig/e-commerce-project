@@ -4,6 +4,29 @@
   <!--================Header Menu Area =================-->
 
   {% block content %}
+<link rel="stylesheet" href="{% static 'js/cart.js' %}">
+
+<script type="text/javascript">
+  var user = '{{request.user}}'
+
+  function getToken(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getToken('csrftoken');
+
+</script>
 
     <!--================Home Banner Area =================-->
     <section class="banner_area">
@@ -64,9 +87,10 @@
                             <i class="ti-heart"></i>
                           </a>
                           {%  if user.is_authenticated %}
-                            <a href="{% url 'basket:basket' %}">
-                              <i class="ti-shopping-cart"></i>
-                            </a>
+                          
+                              <button data-product="{{shop.id}}" data-action="add" class="btn btn-outline-secondary  update-cart"><i class="ti-shopping-cart"></i></button>
+                              
+                            
                             {% else %}
                             <a href="{% url 'register:login' %}" class="icons">
                               <i class="ti-shopping-cart"></i>
@@ -198,4 +222,9 @@
     </section>
     <!--================End Category Product Area =================-->
 
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-36qa4849blE2+poT4WnyKhv5vZFSSrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper/js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCEx130g8ifw86" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="{% static  'js/cart.js'%}"></script>
     {% endblock %}

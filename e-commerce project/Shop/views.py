@@ -1,6 +1,7 @@
-from unicodedata import category
 from django.shortcuts import render
-from .models import Products, Categories, Brands
+from django.http import JsonResponse
+from .models import Products, Categories, Brands, Order, OrderItem, Customer
+import json
 # Create your views here.
 
 def shop(request):
@@ -24,6 +25,33 @@ def shop(request):
         'products': products
     }
     return render(request, 'category.html', context)
+
+def updateItem(request):
+	data = json.loads(request.body)
+	productId = data['productId']
+	action = data['action']
+	print('Action:', action)
+	print('Product:', productId)
+
+	customer = request.User.Customer
+	product = Products.objects.get(id=productId)
+	order, created = Order.objects.get_or_create(customer=customer, complete=False)
+
+	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+
+	if action == 'add':
+		orderItem.quantity = (orderItem.quantity + 1)
+	elif action == 'remove':
+		orderItem.quantity = (orderItem.quantity - 1)
+
+	orderItem.save()
+
+	if orderItem.quantity <= 0:
+		orderItem.delete()
+
+	return JsonResponse('Item was added', safe=False)
+
+
 
 
 def shop_detail(request, slug):
