@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+
+    'ckeditor',
+    'ckeditor_uploader',
 
     # my apps
     'Blog.apps.BlogConfig',
@@ -59,6 +63,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     'social_django.middleware.SocialAuthExceptionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'my_django.urls'
@@ -77,6 +82,7 @@ TEMPLATES = [
 
                 'social_django.context_processors.backends',  # <--
                 'social_django.context_processors.login_redirect', # <--
+                'django.template.context_processors.i18n',  # this one
             ],
         },
     },
@@ -145,8 +151,8 @@ AUTHENTICATION_BACKENDS = (
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
+import os
+LANGUAGE_CODE = 'az'
 
 TIME_ZONE = 'UTC'
 
@@ -155,9 +161,20 @@ USE_I18N = True
 USE_TZ = True
 
 
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale/'),
+)
+
+ugettext = lambda s: s
+LANGUAGES = (
+    ('en', ugettext('English')),
+    ('az', ugettext('Azerbaijan')),
+    ('tr', ugettext('Turkey')),
+)
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-import os
+
 
 STATIC_URL = 'gallery/'
 
@@ -183,3 +200,17 @@ EMAIL_HOST_USER = 'xaliqrehimov1595@gmail.com'
 EMAIL_HOST_PASSWORD = 'ecdqknzvhxkqufhe'
 
 SITE_ADRESS = 'http:127.0.0.1:8000'
+
+
+CKEDITOR_UPLOAD_PATH = "ckeditor_uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'Products.utils.get_filename'
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_RESTRICT_BY_DATE = True
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        "removePlugins": "stylesheetparser",
+        "allowedContent": True,
+        "width": '100%'
+    }
+}

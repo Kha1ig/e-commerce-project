@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from register.forms import LoginForm, RegistrationForm
 from django.contrib import messages
-from register.tasks import send_email
+from register.tasks import send_email, send_forget_password_mail
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from register.tools.tokens import account_activation_token
@@ -12,6 +12,8 @@ from .models import User
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, get_user_model, login as django_login, logout as django_logout
+
+
 User = get_user_model()
 # Create your views here.
 
@@ -51,9 +53,36 @@ class UserProfileView(UpdateView):
 
 
 
+import uuid
 def forgot_password(request):
 
+    try:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            
+            if not User.objects.filter(username=username).first():
+                messages.success(request, 'Not user found with this username.')
+                return redirect('change-password/')
+            
+            user_obj = User.objects.get(username = username)
+            token = str(uuid.uuid4())
+            profile_obj= User.objects.get(user = user_obj)
+            profile_obj.forget_password_token = token
+            profile_obj.save()
+            send_forget_password_mail(user_obj.email , token)
+            messages.success(request, 'An email is sent.')
+            return redirect('/')
+            
+
+
+    except Exception as e:
+        print(e)
+
     return render(request, 'forgot-password.html')
+
+def change_password(request):
+
+    return render(request, 'change-password.html')
 
 def login(request):
 

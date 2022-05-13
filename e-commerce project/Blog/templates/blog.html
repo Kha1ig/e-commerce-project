@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}   
-
+{% load i18n %}
   <!--================Header Menu Area =================-->
 
   {% block content %}
@@ -14,11 +14,13 @@
           >
             <div class="mb-3 mb-md-0">
               <h2>Blog</h2>
-              <p>Very us move be blessed multiply night</p>
+              <p>
+                {% trans 'Very us move be blessed multiply night' %}
+              </p>
             </div>
             <div class="page_link">
-              <a href="{% url 'index:index' %}">Home</a>
-              <a href="{% url 'Blog:blog' %}">Blog </a>
+              <a href="{% url 'index:index' %}">{% trans 'Home' %}</a>
+              <a href="{% url 'Blog:blog' %}">Blog</a>
             </div>
           </div>
         </div>
@@ -51,16 +53,16 @@
                               <li><a href="{{ blog.get_absolute_url }}"><i class="ti-user"></i>{{blog.category}}</a></li>
                               <li><a href="{{ blog.get_absolute_url }}"><i class="ti-comments"></i> 03 Comments</a></li>
                             </ul>
-                            <a href="{% url 'Blog:update_blog' pk=blog.pk %}">Update to Blog 
+                            <a href="{% url 'Blog:update_blog' pk=blog.pk %}">{% trans 'Update to Blog' %} 
                               <iclass="ion-ios-arrow-forward"></i>
                             </a>
-                            <a href="{% url 'Blog:delete_blog' pk=blog.pk %}">Delete to Blog 
+                            <a href="{% url 'Blog:delete_blog' pk=blog.pk %}">{% trans 'Delete to Blog' %} 
                               <iclass="ion-ios-arrow-forward"></i>
                             </a>
                         </div>
                       </article>
                       {% empty %}
-                        <h2>No blogs Found</h2>
+                        <h2>{% trans 'No blogs Found' %}</h2>
 
                     {% endfor %}
 
@@ -69,8 +71,8 @@
                           <ul class="pagination">
                             <span class="step-links">
                                 {% if page_obj.has_previous %}
-                                    <a href="?page=1">&laquo; first</a>
-                                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                                    <a href="?page=1">&laquo; {% trans 'first' %}</a>
+                                    <a href="?page={{ page_obj.previous_page_number }}">{% trans 'previous' %}</a>
                                 {% endif %}
                         
                                 <span class="current">
@@ -78,8 +80,8 @@
                                 </span>
                         
                                 {% if page_obj.has_next %}
-                                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                                    <a href="?page={{ page_obj.next_page_number }}">{% trans 'next' %}</a>
+                                    <a href="?page={{ page_obj.paginator.num_pages }}">{% trans 'last' %} &raquo;</a>
                                 {% endif %}
                             </span>
                           </ul>

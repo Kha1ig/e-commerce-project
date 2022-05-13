@@ -19,17 +19,26 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+from django.conf.urls.i18n import i18n_patterns
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('social-auth/', include('social_django.urls', namespace='social')),  # <--
     path('', include('Home.url', namespace='index')),
     path('shop/', include('Shop.url', namespace='Shop')),
     path('basket/', include('basket.url', namespace='basket')),
-    path('blog/', include('Blog.url', namespace='Blog')),
+    
     path('Contact/', include('Contact.url', namespace='contact')),
     path('register/', include('register.url', namespace='register')),
     
     path('tracking/', include('Pages.url', namespace='track')),
+    path('i18n/', include('django.conf.urls.i18n')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
+
+urlpatterns += i18n_patterns(
+    path('blog/', include('Blog.url', namespace='Blog')),
+)

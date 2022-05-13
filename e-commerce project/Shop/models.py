@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse_lazy
+from ckeditor_uploader.fields import RichTextUploadingField
 from register.models import User
 
 # Create your models here.
@@ -32,8 +33,8 @@ class Products(models.Model):
     brand = models.ForeignKey('Brands', on_delete=models.CASCADE)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='no information')
     short_description = models.TextField()
-    description_1 = models.TextField()
-    description_2 = models.TextField()
+    description_1 = RichTextUploadingField()
+    description_2 = RichTextUploadingField()
     width = models.IntegerField()
     height = models.IntegerField()
     Depth = models.IntegerField()
