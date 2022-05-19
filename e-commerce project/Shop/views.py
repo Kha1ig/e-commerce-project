@@ -33,7 +33,7 @@ def updateItem(request):
 	print('Action:', action)
 	print('Product:', productId)
 
-	customer = request.User.Customer
+	customer = request.user.customer
 	product = Products.objects.get(id=productId)
 	order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
@@ -63,3 +63,12 @@ def shop_detail(request, slug):
     }
 
     return render(request, 'single-product.html', context)
+
+
+def cart(request):
+
+    return render(request, 'cart.html')
+
+def checkout(request):
+
+    return render(request, 'checkout.html')

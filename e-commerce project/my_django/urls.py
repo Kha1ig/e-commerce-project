@@ -27,7 +27,6 @@ urlpatterns = [
     path('social-auth/', include('social_django.urls', namespace='social')),  # <--
     path('', include('Home.url', namespace='index')),
     path('shop/', include('Shop.url', namespace='Shop')),
-    path('basket/', include('basket.url', namespace='basket')),
     
     path('Contact/', include('Contact.url', namespace='contact')),
     path('register/', include('register.url', namespace='register')),

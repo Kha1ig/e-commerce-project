@@ -31,10 +31,10 @@
                         <a class="nav-link" href="{{ Shop.get_absolute_url }}">Product Details</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'basket:checkout' %}">Product Checkout</a>
+                        <a class="nav-link" href="{% url 'Shop:checkout' %}">Product Checkout</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{% url 'basket:basket' %}">Shopping Cart</a>
+                        <a class="nav-link" href="{% url 'Shop:cart' %}">Shopping Cart</a>
                       </li>
                     </ul>
                   </li>
@@ -81,7 +81,7 @@
 
                   {%  if user.is_authenticated %}
                   <li class="nav-item">
-                    <a href="{% url 'basket:basket' %}" class="icons">
+                    <a href="{% url 'Shop:cart' %}" class="icons">
                       <i class="ti-shopping-cart"></i>
                     </a>
                   </li>

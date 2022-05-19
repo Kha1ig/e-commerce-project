@@ -19,20 +19,21 @@ for (i = 0; i < updateBtns.length; i++){
 function updateUserOrder(productId, action){
     console.log('User is authenticated, sending data...')
 
-        var url = '/update_item/'
+        var url = 'http://127.0.0.1:8000/shop/update_item/'
 
         fetch(url, {
-            method: 'POST',
+            method:'POST',
             headers:{
-                'Content-type': 'application/json',
+                'Content-Type': 'application/json',
                 'X-CSRFToken': csrftoken,
             },
             body:JSON.stringify({'productId': productId, 'action': action})
         })
-        .then((response) =>{
-            return response.json()
+        .then((response) => {
+            return response.json();
         })
-        .then((data) =>{
+        .then((data) => {
+            console.log('data:', data)
             location.reload()
         });
 }

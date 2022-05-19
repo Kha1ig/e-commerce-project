@@ -23,8 +23,8 @@
         }
     }
     return cookieValue;
-}
-const csrftoken = getToken('csrftoken');
+  }
+  const csrftoken = getToken('csrftoken');
 
 </script>
 
@@ -88,7 +88,7 @@ const csrftoken = getToken('csrftoken');
                           </a>
                           {%  if user.is_authenticated %}
                           
-                              <button data-product="{{shop.id}}" data-action="add" class="btn btn-outline-secondary  update-cart"><i class="ti-shopping-cart"></i></button>
+                              <button data-product="{{shop.id}}" data-action="add" class="btn btn-outline-secondary update-cart"><i class="ti-shopping-cart"></i></button>
                               
                             
                             {% else %}
@@ -227,4 +227,5 @@ const csrftoken = getToken('csrftoken');
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCEx130g8ifw86" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="{% static  'js/cart.js'%}"></script>
+
     {% endblock %}
