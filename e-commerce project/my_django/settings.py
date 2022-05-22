@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'Pages',
     'Shop.apps.ShopConfig',
     'register',
-    'basket'
+    
 ]
 
 MIDDLEWARE = [

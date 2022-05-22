@@ -38,9 +38,9 @@
               <p>Very us move be blessed multiply night</p>
             </div>
             <div class="page_link">
-              <a href="index.html">Home</a>
-              <a href="category.html">Shop</a>
-              <a href="category.html">Women Fashion</a>
+              <a href="{% url 'index:index' %}">Home</a>
+              <a href="{% url 'Shop:shop' %}">Shop</a>
+              <a href="{% url 'Shop:shop' %}">Women Fashion</a>
             </div>
           </div>
         </div>
@@ -124,9 +124,9 @@
                 </div>
                 <div class="widgets_inner">
                   <ul class="list">
-                    {% for category in categories %}
+                    {% for cat in categories %}
                     <li>
-                      <a href="/shop/?category={{category.id}}">{{category.category_name}}</a>
+                      <a href="/shop/?category={{cat.id}}">{{cat.category_name}}</a>
                     </li>
                     {% endfor %}
                     <!-- <li>
@@ -157,10 +157,12 @@
                 </div>
                 <div class="widgets_inner">
                   <ul class="list">
-                    <li>
-                      <a href="#">Apple</a>
-                    </li>
-                    <li>
+                    {% for i in brand %}
+                      <li>
+                        <a href="/shop/?brand={{i.id}}">{{ i.brand_name}}</a>
+                      </li>
+                    {% endfor %}
+                    <!-- <li>
                       <a href="#">Asus</a>
                     </li>
                     <li class="active">
@@ -171,7 +173,7 @@
                     </li>
                     <li>
                       <a href="#">Samsung</a>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
               </aside>
@@ -182,10 +184,12 @@
                 </div>
                 <div class="widgets_inner">
                   <ul class="list">
+                    {% for i in colour %}
                     <li>
-                      <a href="#">Black</a>
+                      <a href="/shop/?colour={{i.id}}">{{ i.colour_name }}</a>
                     </li>
-                    <li>
+                    {% endfor %}
+                    <!-- <li>
                       <a href="#">Black Leather</a>
                     </li>
                     <li class="active">
@@ -196,7 +200,7 @@
                     </li>
                     <li>
                       <a href="#">Spacegrey</a>
-                    </li>
+                    </li> -->
                   </ul>
                 </div>
               </aside>
@@ -205,14 +209,15 @@
                 <div class="l_w_title">
                   <h3>Price Filter</h3>
                 </div>
-                <div class="widgets_inner">
-                  <div class="range_item">
-                    <div id="slider-range"></div>
-                    <div class="">
-                      <label for="amount">Price : </label>
-                      <input type="text" id="amount" readonly />
-                    </div>
+                  <div class="widgets_inner">
+                    <ul class="list">
+                    {% for price in filter_price %}
+                      <li>
+                        <a href="/shop/?price={{price.id}}">{{price.price}}</a>
+                      </li>
+                    {% endfor %}
                   </div>
+                  
                 </div>
               </aside>
             </div>
@@ -222,9 +227,8 @@
     </section>
     <!--================End Category Product Area =================-->
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-36qa4849blE2+poT4WnyKhv5vZFSSrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper/js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCEx130g8ifw86" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" ></script>
+   
 
     <script type="text/javascript" src="{% static  'js/cart.js'%}"></script>
 

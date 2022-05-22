@@ -1,28 +1,45 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .models import Products, Categories, Brands, Order, OrderItem, Customer
+from .models import Colours, Filter_price, Products, Categories, Brands, Order, OrderItem
 import json
+
 # Create your views here.
 
 def shop(request):
     # categories = Categories.objects.all()
-    brand = Brands.objects.all()
     #shops = Products.objects.all()
+    categories = Categories.objects.all()
+    brand = Brands.objects.all()
+    colour = Colours.objects.all()
+    filter_price = Filter_price.objects.all()
     products = None
-    categories = Categories.get_all_categories()
+    order = {'get_cart_total':0, 'get_cart_items':0}
+    cartItems = order['get_cart_items']
+    CATID = request.GET.get('category')
+    brandID = request.GET.get('brand')
+    colourID = request.GET.get('colour')
+    priceID = request.GET.get('price')
+    if CATID:
+        products = Products.objects.filter(category=CATID)
+    elif brandID:
+        products = Products.objects.filter(brand=brandID)
+    elif colourID:
+        products = Products.objects.filter(colour=colourID)
+    elif priceID:
+        products = Products.objects.filter(filter_price=priceID)
 
-    categoryID = request.GET.get('category')
-    if categoryID:
-        products = Products.get_all_products_by_categoryid(categoryID)
     else:
-        products = Products.get_all_products();
-
+        products = Products.objects.all()
 
     context = {
         #'shops':shops,
         'categories': categories,
         'brand': brand,
-        'products': products
+        'products': products,
+        'order': order,
+        'cartItems': cartItems,
+        'colour': colour,
+        'filter_price': filter_price,
     }
     return render(request, 'category.html', context)
 
@@ -33,9 +50,9 @@ def updateItem(request):
 	print('Action:', action)
 	print('Product:', productId)
 
-	customer = request.user.customer
+	user = request.user
 	product = Products.objects.get(id=productId)
-	order, created = Order.objects.get_or_create(customer=customer, complete=False)
+	order, created = Order.objects.get_or_create(user=user, complete=False)
 
 	orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
 
@@ -67,8 +84,31 @@ def shop_detail(request, slug):
 
 def cart(request):
 
-    return render(request, 'cart.html')
+    if request.user.is_authenticated:
+        customer = request.user
+        order, created = Order.objects.get_or_create(customer=customer,complete = False)
+        items = Order.OrderItem_set.all()
+        cartItems = order['get_cart_items']
+    else:
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0}
+    
+    context = {
+        'items':items, 
+        'order':order,
+        'cartItems': cartItems
+        }
+    return render(request, 'cart.html', context)
 
 def checkout(request):
 
-    return render(request, 'checkout.html')
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(customer=customer,complete = False)
+        items = Order.OrderItem_set.all()
+    else:
+        items = []
+        order = {'get_cart_total':0, 'get_cart_items':0}
+    
+    context = {'items':items, 'order':order,}
+    return render(request, 'checkout.html', context)
