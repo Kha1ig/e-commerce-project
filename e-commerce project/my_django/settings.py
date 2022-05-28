@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'ckeditor_uploader',
+    'rest_framework',
 
     # my apps
     'Blog.apps.BlogConfig',

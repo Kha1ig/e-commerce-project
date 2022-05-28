@@ -19,6 +19,8 @@ def shop(request):
     brandID = request.GET.get('brand')
     colourID = request.GET.get('colour')
     priceID = request.GET.get('price')
+    AtoZID = request.GET.get('AtoZ')
+    ZtoAID = request.GET.get('ZtoA')
     if CATID:
         products = Products.objects.filter(category=CATID)
     elif brandID:
@@ -27,7 +29,11 @@ def shop(request):
         products = Products.objects.filter(colour=colourID)
     elif priceID:
         products = Products.objects.filter(filter_price=priceID)
-
+    elif AtoZID:
+        products = Products.objects.all().order_by('product_name')
+    elif ZtoAID:
+        products = Products.objects.all().order_by('-product_name')
+    
     else:
         products = Products.objects.all()
 

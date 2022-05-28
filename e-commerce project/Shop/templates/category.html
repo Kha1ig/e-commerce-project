@@ -54,18 +54,30 @@
         <div class="row flex-row-reverse">
           <div class="col-lg-9">
             <div class="product_top_bar">
-              <div class="left_dorp">
+              <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Default sorting
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="/shop/{% for i in products %}?AtoZ={{i.id}}{% endfor %}">Name, A to Z</a></li>
+                  <li><a href="/shop/{% for i in products %}?ZtoA={{i.id}}{% endfor %}">Name, Z to A</a></li>
+                  <li><a href="#">Price, low to high</a></li>
+                </ul>
+              </div>
+              <!-- <div class="left_dorp">
                 <select class="sorting">
-                  <option value="1">Default sorting</option>
-                  <option value="2">Default sorting 01</option>
-                  <option value="4">Default sorting 02</option>
+                  <option value="1">
+                    <a href="">Default sorting </a></option>
+                  <option value="2"><a href="/shop/{% for i in products %}?AtoZ={{i.id}}{% endfor %}">Name, A to Z</a></option>
+                  <option value="4"><a href="">Name, Z to A</a></option>
+                  <option value="4"><a href="">Price, Low to High</a></option>
+                  <option value="4"><a href="">Price, High to Low</a></option>
                 </select>
                 <select class="show">
                   <option value="1">Show 12</option>
                   <option value="2">Show 14</option>
                   <option value="4">Show 16</option>
                 </select>
-              </div>
+              </div> -->
             </div>
             
             <div class="latest_product_inner">

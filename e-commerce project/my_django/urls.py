@@ -30,7 +30,7 @@ urlpatterns = [
     
     path('Contact/', include('Contact.url', namespace='contact')),
     path('register/', include('register.url', namespace='register')),
-    
+    path('api/', include('Blog.api.urls')),
     path('tracking/', include('Pages.url', namespace='track')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
